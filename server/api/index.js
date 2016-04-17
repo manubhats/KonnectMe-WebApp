@@ -108,6 +108,7 @@ export default function() {
 
     .post(function(req, res) {
         req.addListener('end', function() {
+            console.log(json);
             let result = Result(json);
             let id = result.sessionId;
             for (let i = 0; i < pending_requests.length; i++) {
@@ -123,7 +124,6 @@ export default function() {
 
     // Handle new call request
     .post(function(req, res) {
-        console.log("called");
         let data = "";
         req.on('data', function(chunk) {
             data += chunk;
@@ -134,9 +134,7 @@ export default function() {
             let data_array = data.split('\n');
             for (let i = 0; i < data_array.length; i++) {
                 try {
-                    console.log(data_array[i]);
                     data = JSON.parse(data_array[i]);
-                    console.log(data);
                     call(data.username, 
                         data.user_number,
                         data.eventID, 
