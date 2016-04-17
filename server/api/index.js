@@ -37,7 +37,7 @@ export default function() {
             let choices = new Choices("yes(1, yes), no(2, no)");
         
             // Action classes can be passes as parameters to TropoWebAPI class methods.
-            tropo.ask(choices, 3, true, null, "foo", null, true, say, 5, null);
+            tropo.ask(choices, 3, true, null, (JSON.parse(json)).session.id, null, true, say, 5, null);
             tropo.on("continue", null, '/api/answer', true);
             tropo.on("incomplete", null, '/api/noanswer', true);
             tropo.on("hangup", null, "/api/error", true);
@@ -137,14 +137,14 @@ export default function() {
                     console.log(data_array[i]);
                     data = JSON.parse(data_array[i]);
                     console.log(data);
-                    call(data.name, 
-                        data.initiator_phone_number,
-                        data.event_id, 
-                        data.contact_id, 
-                        data.contact_name, 
-                        data.contact_number,
-                        data.event_name, 
-                        data.message);
+                    call(data.username, 
+                        data.user_number,
+                        data.eventID, 
+                        data.userID, 
+                        data.name, 
+                        data.number,
+                        data.eventName, 
+                        data.eventDesc);
                 } catch (e) {
                     console.log(e);
                 }
