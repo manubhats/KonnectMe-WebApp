@@ -2,6 +2,16 @@ import { Router } from 'express';
 import {call} from '../lib/tropo.js';
 require('tropo-webapi-node');
 
+let pending_requests = [];
+
+pending_request = {
+    id: null,
+    initiator_phone_number: null,
+    event_id: null,
+    recipient_id: null,
+    response: null
+}
+
 export default function() {
 
 	let router = Router();
@@ -20,9 +30,21 @@ export default function() {
         req.addListener('end', function(){
             console.log("Creating Tropo");
             let tropo = new TropoWebAPI();
+            let response = (JSON.parse(json)).session;
+            // Create a new instance of the Session object and give it the JSON delivered from Tropo. 
+            let session = response.parameters;
 
-            // Create a new instance of the Session object and give it the JSON delivered from Tropo.
-            let session = (JSON.parse(json)).session.parameters;
+            console.log(`Received request for ID ${response.id}`);
+
+            // Create and populate new request object
+            let new_request = new Object(pending_request);
+            new_request.id = response.id;
+            new_request.initiator_phone_number = session.recipient_phone_number;
+            new_request.event_id = session.event_id;
+            new_request.recipient_id = session.recipient_id;
+
+            // Push the new request into the pending array
+            pending_requests.push(pending_request);
 
             tropo.call(`${session.recipient_phone_number}`);
             
@@ -51,12 +73,16 @@ export default function() {
             let tropo = new TropoWebAPI();
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
-            console.log(json);
             let result = Result(json);
+            let id = result.sessionId;
+            for (let i = 0; i < pending_requests.length; i++) {
+                if (pending_requests[i] == id) {
+                    console.log(`Received ${result.value} response for ID ${id}`);
+                    pending_requests[i].response = result.value;
+                }
+            }
 
-            tropo.say("Thank you for you response");
-
-            console.log(result);
+            tropo.say("Thank you for you response. Have a great day!");
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
@@ -67,7 +93,16 @@ export default function() {
 
     .post(function(req, res) {
         req.addListener('end', function() {
-            let tropo = new TropoWebAPI();
+            let result = Result(json);
+            let id = result.sessionId;
+            for (let i = 0; i < pending_requests.length; i++) {
+                if (pending_requests[i] == id) {
+                    console.log(`Received ${result.value} response for ID ${id}`);
+                    pending_requests[i].response = result.value;
+                }
+            }
+
+            tropo.say("You have not given a response, so we cannot confirm your interest. Have a great day!");
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
@@ -76,7 +111,26 @@ export default function() {
 
     router.route('/call')
 
-    // scan a URL
+    // Handle new call request
+    .post(function(req, res) {
+
+        /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
+        let session = Session(json);
+
+        //call based on json data
+
+        let request = req.body.request;
+        request = JSON.parse(request);
+        let initiator_name = request.initiator_name;
+        let message = request.message;
+        let recipients = request.recipients;
+        for ()*/
+    });
+
+    // Handle update request
+    router.route('/update')
+
+    // Handle new call request
     .post(function(req, res) {
 
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
