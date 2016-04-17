@@ -13,6 +13,7 @@
     "license": "Proprietary",
     "dependencies": {
         "babel": "^5.8.21",
-        "express": "^4.0.0"
+        "express": "^4.0.0",
+        "tropo-webapi-node": "^1.0.0"
     }
 }
