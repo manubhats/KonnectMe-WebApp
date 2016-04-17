@@ -1,7 +1,6 @@
 import http from 'http';
 import express from 'express';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
 import api from './api';
 
 var app = express();
