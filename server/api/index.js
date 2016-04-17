@@ -40,7 +40,7 @@ export default function() {
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
             console.log("Sent Tropo: \n");
-            console.log(TropoJSON(tropo));
+            //console.log(TropoJSON(tropo));
         });
     });
 
