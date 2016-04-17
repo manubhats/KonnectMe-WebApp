@@ -15,29 +15,31 @@ export default function() {
         next();
     });
 
-    router.get('/', function(req, res) {
-        console.log("Creating Tropo");
-        let tropo = new TropoWebAPI();
+    router.post('/', function(req, res) {
+        req.addListener('end', function(){
+            console.log("Creating Tropo");
+            let tropo = new TropoWebAPI();
 
-        // Create a new instance of the Session object and give it the JSON delivered from Tropo.
-        let session = Session(json);
+            // Create a new instance of the Session object and give it the JSON delivered from Tropo.
+            let session = Session(json);
 
-        tropo.call(`${session.recipient_phone_number}`);
-        
-        tropo.say(`Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.message}.`);
-
-        // Demonstrates how to use the base Tropo action classes.
-        let say = new Say(`Would you like to join in? Press 1 or say yes to join, or say no or press 2 to decline.`);
-        let choices = new Choices('{"yes(1, yes), no(2, no)"}');
+            tropo.call(`${session.recipient_phone_number}`);
+            
+            tropo.say(`Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.message}.`);
     
-        // Action classes can be passes as parameters to TropoWebAPI class methods.
-        tropo.ask(choices, 3, false, null, "foo", null, true, say, 5, null);
-        tropo.on("continue", null, '/answer', true);
-        tropo.on("incomplete", null, '/noanswer', true);
+            // Demonstrates how to use the base Tropo action classes.
+            let say = new Say(`Would you like to join in? Press 1 or say yes to join, or say no or press 2 to decline.`);
+            let choices = new Choices('{"yes(1, yes), no(2, no)"}');
+        
+            // Action classes can be passes as parameters to TropoWebAPI class methods.
+            tropo.ask(choices, 3, false, null, "foo", null, true, say, 5, null);
+            tropo.on("continue", null, '/answer', true);
+            tropo.on("incomplete", null, '/noanswer', true);
 
-        res.writeHead(200, {'Content-Type': 'application/json'});   
-        res.end(TropoJSON(tropo));
-        console.log("Sent Tropo");
+            res.writeHead(200, {'Content-Type': 'application/json'});   
+            res.end(TropoJSON(tropo));
+            console.log("Sent Tropo");
+        });
     });
 
     router.route('/answer')
