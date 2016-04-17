@@ -17,6 +17,7 @@ export default function() {
 
     router.get('/', function(req, res) {
         req.addListener('end', function(){
+            console.log("Creating Tropo");
             let tropo = new TropoWebAPI();
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
@@ -37,6 +38,7 @@ export default function() {
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
+            console.log("Sent Tropo");
         });
     });
 
