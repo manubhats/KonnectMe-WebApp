@@ -74,12 +74,12 @@ export default function() {
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
             let result = Result(json);
             let id = result.sessionId;
+            console.log("ID\t",id);
             for (let i = 0; i < pending_requests.length; i++) {
                 if (pending_requests[i].id == id) {
-                    //console.log(`Received ${result.value} response for ID ${id}`);
+                    console.log(`Received ${result.value} response for ID ${id}`);
 					console.log(pending_request);
                     pending_requests[i].response = result.value;
-					pending.length = 0;
                 }
             }
 
@@ -96,11 +96,11 @@ export default function() {
         req.addListener('end', function() {
             let result = Result(json);
             let id = result.sessionId;
-			console.log("ID\t",id)
+			console.log("ID\t",id);
             for (let i = 0; i < pending_requests.length; i++) {
                 if (pending_requests[i].id == id) {
                     console.log(`Received ${result.value} response for ID ${id}`);
-                    pending_requests[i].response = result.value;
+                    pending_requests[i].response = "no";
                 }
             }
 
