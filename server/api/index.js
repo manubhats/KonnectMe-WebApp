@@ -43,7 +43,7 @@ export default function() {
     router.route('/answer')
 
     .post(function(req, res) {
-        req.addListener('end', function(){
+        req.addListener('end', function() {
             let tropo = new TropoWebAPI();
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
@@ -55,18 +55,18 @@ export default function() {
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
-        }
+        });
     });
 
     router.route('/noanswer')
 
     .post(function(req, res) {
-        req.addListener('end', function(){
+        req.addListener('end', function() {
             let tropo = new TropoWebAPI();
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
-        }
+        });
     });
 
     router.route('/call')
