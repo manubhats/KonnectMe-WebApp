@@ -81,6 +81,7 @@ export default function() {
                     //console.log(`Received ${result.value} response for ID ${id}`);
 					console.log(pending_request);
                     pending_requests[i].response = result.value;
+					
                 }
             }
 
@@ -97,10 +98,12 @@ export default function() {
         req.addListener('end', function() {
             let result = Result(json);
             let id = result.sessionId;
+			console.log("ID\t",id)
             for (let i = 0; i < pending_requests.length; i++) {
                 if (pending_requests[i].id == id) {
                     console.log(`Received ${result.value} response for ID ${id}`);
                     pending_requests[i].response = result.value;
+					pending_request.length = 0;
                 }
             }
 
