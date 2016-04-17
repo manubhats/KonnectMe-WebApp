@@ -94,7 +94,7 @@ export default function() {
         req.addListener('end', function() {
             let tropo = new TropoWebAPI();
             console.log(json);
-			try:
+			try{
 				let result = Result(json);
 				let id = result.sessionId;
 				for (let i = 0; i < pending_requests.length; i++) {
@@ -103,6 +103,7 @@ export default function() {
 						pending_requests[i].response = "no";
 					}
 				}
+			}
 			catch(e){
 				console.log("");
 			}
