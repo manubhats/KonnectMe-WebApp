@@ -28,26 +28,12 @@ export default function() {
 
     router.post('/', function(req, res) {
         req.addListener('end', function(){
-            console.log("Creating Tropo");
+
             let tropo = new TropoWebAPI();
-            let response = (JSON.parse(json)).session;
-            // Create a new instance of the Session object and give it the JSON delivered from Tropo. 
-            let session = response.parameters;
 
-            console.log(`Received request for ID ${response.id}`);
-			//console.log(response.id)
+            let session = (JSON.parse(json)).session.parameters;
 
-            // Create and populate new request object
-            let new_request = new Object(pending_request);
-            new_request.id = response.id;
-            new_request.initiator_phone_number = session.initiator_phone_number;
-            new_request.event_id = session.event_id;
-            new_request.recipient_id = session.recipient_id;
-
-            // Push the new request into the pending array
-            pending_requests.push(pending_request);
-            console.log("Pushing request: ");
-            console.log(pending_request);
+            console.log(`Received request for ID ${(JSON.parse(json)).session.id}`);
 
             tropo.call(`${session.recipient_phone_number}`);
             
@@ -64,6 +50,18 @@ export default function() {
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
+
+            // Create and populate new request object
+            let new_request = new Object(pending_request);
+            new_request.id = (JSON.parse(json)).session.id;
+            new_request.initiator_phone_number = session.initiator_phone_number;
+            new_request.event_id = session.event_id;
+            new_request.recipient_id = session.recipient_id;
+
+            // Push the new request into the pending array
+            pending_requests.push(pending_request);
+            console.log("Pushing request: ");
+            console.log(pending_request);
         });
     });
 
@@ -103,7 +101,6 @@ export default function() {
                 if (pending_requests[i].id == id) {
                     console.log(`Received ${result.value} response for ID ${id}`);
                     pending_requests[i].response = result.value;
-					pending_request.length = 0;
                 }
             }
 
