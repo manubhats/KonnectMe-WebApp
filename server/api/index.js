@@ -130,6 +130,7 @@ export default function() {
         });
         req.on('end', function() {
             console.log(data);
+            console.log(decodeURI(data));
             try {
                 data = JSON.parse(data);
                 console.log(data);
