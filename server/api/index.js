@@ -3,6 +3,7 @@ import {call} from '../lib/tropo.js';
 require('tropo-webapi-node');
 
 let pending_requests = [];
+const apostrophe = "'";
 
 export default function() {
 
@@ -29,7 +30,7 @@ export default function() {
 
             tropo.call(`${session.recipient_phone_number}`);
             
-            tropo.say(`Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.message}.`);
+            tropo.say(`. . . Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.event_name}. ${session.initiator_name}${apostrophe}s message to you is: ${session.message}.`);
     
             // Demonstrates how to use the base Tropo action classes.
             let say = new Say(`Would you like to join in? Press 1 or say yes to join, or say no or press 2 to decline.`);
@@ -39,6 +40,8 @@ export default function() {
             tropo.ask(choices, 3, true, null, "foo", null, true, say, 5, null);
             tropo.on("continue", null, '/api/answer', true);
             tropo.on("incomplete", null, '/api/noanswer', true);
+            tropo.on("hangup", null, "/api/error", true);
+            tropo.on("error", null, "/api/error", true);
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
@@ -85,6 +88,8 @@ export default function() {
 
     .post(function(req, res) {
         req.addListener('end', function() {
+            let tropo = new TropoWebAPI();
+
             let result = Result(json);
             let id = result.sessionId;
             for (let i = 0; i < pending_requests.length; i++) {
@@ -101,11 +106,58 @@ export default function() {
         });
     });
 
+    router.route('/error')
+
+    .post(function(req, res) {
+        req.addListener('end', function() {
+            let result = Result(json);
+            let id = result.sessionId;
+            for (let i = 0; i < pending_requests.length; i++) {
+                if (pending_requests[i].id == id) {
+                    console.log(`Received ${result.value} response for ID ${id}`);
+                    pending_requests[i].response = "no";
+                }
+            }
+        });
+    });
+
     router.route('/call')
 
     // Handle new call request
     .post(function(req, res) {
-         
+        /*
+            Assume data is parsed into format:
+            let data = {
+                initiator_name: x,
+                initiator_phone_number: x,
+                event_id: x,
+                event_name: x,
+                event_message: x,
+                contacts: [
+                    {
+                        contact_id: x,
+                        contact_name: x,
+                        contact_number: x
+                    },{
+                        contact_id: x,
+                        contact_name: x,
+                        contact_number: x
+                    }   
+                ]
+            };
+
+            for (let i = 0; i < data.contacts.length; i++) {
+                call(data.initiator_name, 
+                    data.initiator_phone_number,
+                    data.event_id, 
+                    data.contacts[i].contact_id, 
+                    data.contacts[i].contact_name, 
+                    data.contacts[i].contact_number,
+                    data.event_name, 
+                    data.message);
+            }     
+
+        */
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
         let session = Session(json);
 
@@ -119,11 +171,30 @@ export default function() {
         for ()*/
     });
 
-    // Handle update request
+
     router.route('/update')
 
-    // Handle new call request
+    // Handle new update request
     .post(function(req, res) {
+        Assume data is parsed into format: 
+        let data = {
+            initiator_phone_number: x
+        };
+
+        let i = 0;
+        result = [];
+        while (i < pending_requests.length) {
+            if (pending_requests[i].initiator_phone_number == data.initiator_phone_number) {
+                result.push({
+                    event_id: pending_requests[i].event_id,
+                    contact_id: pending_requests[i].contact_id,
+                    response: pending_requests[i].response
+                });
+                pending_requests.splice(i, 1);
+            } else {
+                i++;
+            }
+        }
 
 
 
@@ -140,8 +211,8 @@ export default function() {
         for ()*/
     });
 
-    call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "Let's go to HackDFW");
-    call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Let's go to Six Flags");
+    call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
+    call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Six Flags", "Let's go to Six Flags");
 	//call("Manu", "19312848422", "2", "2", "Hussain", "6825648880", "Let's go to Six Flags");
 
     return router;
