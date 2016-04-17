@@ -23,6 +23,7 @@ export default function() {
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
             let session = Session(json);
+            console.log(session);
 
             tropo.call(`${session.recipient_phone_number}`);
             
@@ -90,7 +91,7 @@ export default function() {
         for ()*/
     });
 
-    call("Hussain", "Revanth", "9312848422", "Let's go to HackDFW");
+    call("Hussain", "Revanth", "19312848422", "Let's go to HackDFW");
 
     return router;
 }
