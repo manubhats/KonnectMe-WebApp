@@ -130,59 +130,25 @@ export default function() {
         });
         req.on('end', function() {
             data = decodeURIComponent(data.replace(/\+/g,  " "));
-            console.log(data);
-            try {
-                data = JSON.parse(data);
-                console.log(data);
-                for (let i = 0; i < data.contacts.length; i++) {
-                    call(data.initiator_name, 
+            data = data.substring(1);
+            data_array = data.split('\n');
+            for (let i = 0; i < data_array.length; i++) {
+                try {
+                    data = JSON.parse(data_array[i]);
+                    console.log(data);
+                    call(data.name, 
                         data.initiator_phone_number,
                         data.event_id, 
-                        data.contacts[i].contact_id, 
-                        data.contacts[i].contact_name, 
-                        data.contacts[i].contact_number,
+                        data.contact_id, 
+                        data.contact_name, 
+                        data.contact_number,
                         data.event_name, 
                         data.message);
-                }  
-            } catch (e) {
-
+                } catch (e) {
+                    console.log(e);
+                }
             } 
         });
-        /*
-            Assume data is parsed into format:
-            let data = {
-                initiator_name: x,
-                initiator_phone_number: x,
-                event_id: x,
-                event_name: x,
-                event_message: x,
-                contacts: [
-                    {
-                        contact_id: x,
-                        contact_name: x,
-                        contact_number: x
-                    },{
-                        contact_id: x,
-                        contact_name: x,
-                        contact_number: x
-                    }   
-                ]
-            };
-
-                  
-
-        */
-        /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
-        let session = Session(json);
-
-        //call based on json data
-
-        let request = req.body.request;
-        request = JSON.parse(request);
-        let initiator_name = request.initiator_name;
-        let message = request.message;
-        let recipients = request.recipients;
-        for ()*/
     });
 
 
@@ -209,20 +175,7 @@ export default function() {
                 i++;
             }
         }
-
-
-        */
-        /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
-        let session = Session(json);
-
-        //call based on json data
-
-        let request = req.body.request;
-        request = JSON.parse(request);
-        let initiator_name = request.initiator_name;
-        let message = request.message;
-        let recipients = request.recipients;
-        for ()*/
+        res.end(JSON.stringify(result));
     });
 
     //call("Hussain", "14692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
