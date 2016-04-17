@@ -66,6 +66,7 @@ export default function() {
             let tropo = new TropoWebAPI();
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
+            console.log(json);
             let result = Result(json);
             let id = result.sessionId;
             for (let i = 0; i < pending_requests.length; i++) {
@@ -87,7 +88,7 @@ export default function() {
     .post(function(req, res) {
         req.addListener('end', function() {
             let tropo = new TropoWebAPI();
-
+            console.log(json);
             let result = Result(json);
             let id = result.sessionId;
             for (let i = 0; i < pending_requests.length; i++) {
