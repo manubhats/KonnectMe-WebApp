@@ -78,7 +78,8 @@ export default function() {
             let id = result.sessionId;
             for (let i = 0; i < pending_requests.length; i++) {
                 if (pending_requests[i].id == id) {
-                    console.log(`Received ${result.value} response for ID ${id}`);
+                    //console.log(`Received ${result.value} response for ID ${id}`);
+					console.log(pending_request);
                     pending_requests[i].response = result.value;
                 }
             }
