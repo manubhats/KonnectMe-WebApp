@@ -131,7 +131,7 @@ export default function() {
         req.on('end', function() {
             data = decodeURIComponent(data.replace(/\+/g,  " "));
             data = data.substring(1);
-            data_array = data.split('\n');
+            let data_array = data.split('\n');
             for (let i = 0; i < data_array.length; i++) {
                 try {
                     data = JSON.parse(data_array[i]);
