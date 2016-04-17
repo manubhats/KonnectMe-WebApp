@@ -34,8 +34,8 @@ export default function() {
         
             // Action classes can be passes as parameters to TropoWebAPI class methods.
             tropo.ask(choices, 3, false, null, "foo", null, true, say, 5, null);
-            tropo.on("continue", null, '/answer', true);
-            tropo.on("incomplete", null, '/noanswer', true);
+            tropo.on("continue", null, '/api/answer', true);
+            tropo.on("incomplete", null, '/api/noanswer', true);
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
