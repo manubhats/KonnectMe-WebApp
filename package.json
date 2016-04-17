@@ -1,0 +1,19 @@
+{
+    "name": "KonnectMe",
+    "version": "0.1.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/mucklai/KonnectMe.git"
+    },
+    "license": "Proprietary",
+    "dependencies": {
+        "babel": "^5.8.21",
+        "express": "^4.0.0",
+        "morgan": "^1.0.0"
+    }
+}
