@@ -134,6 +134,7 @@ export default function() {
             let data_array = data.split('\n');
             for (let i = 0; i < data_array.length; i++) {
                 try {
+                    console.log(data_array[i]);
                     data = JSON.parse(data_array[i]);
                     console.log(data);
                     call(data.name, 
