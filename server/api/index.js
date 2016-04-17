@@ -28,7 +28,7 @@ export default function() {
 
             console.log(`Received request for ID ${(JSON.parse(json)).session.id}`);
 
-            tropo.call(`${session.recipient_phone_number}`);
+            tropo.call(session.recipient_phone_number, null, null, session.initiator_phone_number);
             
             tropo.say(`. . . Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.event_name}. ${session.initiator_name}${apostrophe}s message to you is: ${session.message}.`);
     
