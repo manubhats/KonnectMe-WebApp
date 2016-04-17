@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {call} from '../lib/tropo.js';
-import tropo-webapi from 'tropo-webapi-node'
+import tropo-webapi from 'tropo-webapi-node';
 
 export default function() {
 
@@ -40,7 +40,9 @@ export default function() {
         });
     });
 
-    router.route('/answer') {
+    router.route('/answer')
+
+    .post(function(req, res) {
         req.addListener('end', function(){
             let tropo = new TropoWebAPI();
 
@@ -54,16 +56,18 @@ export default function() {
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
         }
-    }
+    });
 
-    router.route('/noanswer') {
+    router.route('/noanswer')
+    
+    .post(function(req, res) {
         req.addListener('end', function(){
             let tropo = new TropoWebAPI();
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
         }
-    }
+    });
 
     router.route('/call')
 
@@ -83,7 +87,7 @@ export default function() {
         for ()*/
     });
 
-    call("Hussain", "Revanth", "9312848422", "Let's go to HackDFW")
+    call("Hussain", "Revanth", "9312848422", "Let's go to HackDFW");
 
     return router;
 }
