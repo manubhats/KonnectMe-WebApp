@@ -51,7 +51,7 @@ export default function() {
             let tropo = new TropoWebAPI();
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
-            console.log(json);
+            //console.log(json);
             let result = Result(json);
 
             tropo.say("Thank you for you response");
