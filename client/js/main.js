@@ -70,7 +70,7 @@ $( document ).ready(function() {
 	    		if (data != "No updates") {
 	    			try {
 	    				data = JSON.parse(data);
-			    		for (var i = 0; i < data.length) {
+			    		for (var i = 0; i < data.length; i++) {
 			    			var cur = $("#recipientName" + data[i].contact_id).val();
 			    			$("#recipientName" + data[i].contact_id).val(cur + " - Response: " + data[i].response);		
 			    		}
