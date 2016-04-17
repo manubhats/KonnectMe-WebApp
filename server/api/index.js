@@ -10,7 +10,7 @@ export default function() {
         // do logging
         console.log('Something is happening.');
         req.addListener('data', function(data){
-            json = data.toString();
+            let json = data.toString();
         });
         next();
     });
