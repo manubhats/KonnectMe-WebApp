@@ -39,7 +39,7 @@ export default function() {
             // Create and populate new request object
             let new_request = new Object(pending_request);
             new_request.id = response.id;
-            new_request.initiator_phone_number = session.recipient_phone_number;
+            new_request.initiator_phone_number = session.initiator_phone_number;
             new_request.event_id = session.event_id;
             new_request.recipient_id = session.recipient_id;
 
@@ -146,7 +146,8 @@ export default function() {
         for ()*/
     });
 
-    call("Hussain", "Revanth", "19312848422", "Let's go to HackDFW");
+    call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "Let's go to HackDFW");
+    call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Let's go to Six Flags");
 
     return router;
 }
