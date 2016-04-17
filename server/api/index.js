@@ -171,7 +171,7 @@ export default function() {
                 if (pending_requests[i].initiator_phone_number == data) {
                     result.push({
                         event_id: pending_requests[i].event_id,
-                        contact_id: pending_requests[i].contact_id,
+                        contact_id: pending_requests[i].recipient_id,
                         response: pending_requests[i].response
                     });
                     pending_requests.splice(i, 1);
