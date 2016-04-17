@@ -156,6 +156,13 @@ export default function() {
 
     // Handle new update request
     .post(function(req, res) {
+        let data = "";
+        req.on('data', function(chunk) {
+            data += chunk;
+        });
+        req.on('end', function() {
+            console.log(data);
+        });
         /*Assume data is parsed into format: 
         let data = {
             initiator_phone_number: x
@@ -175,7 +182,7 @@ export default function() {
                 i++;
             }
         }
-        res.end(JSON.stringify(result));*/
+        res.end(JSON.stringify(result));
     });
 
     //call("Hussain", "14692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
