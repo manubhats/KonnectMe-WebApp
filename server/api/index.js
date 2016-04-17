@@ -5,12 +5,13 @@ require('tropo-webapi-node');
 export default function() {
 
 	let router = Router();
+    let json;
 
 	router.use(function(req, res, next) {
         // do logging
         console.log('Something is happening.');
         req.addListener('data', function(data){
-            let json = data.toString();
+            json = data.toString();
         });
         next();
     });
