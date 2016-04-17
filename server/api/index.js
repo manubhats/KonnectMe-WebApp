@@ -166,7 +166,7 @@ export default function() {
             console.log(data);
 
             let i = 0;
-            result = [];
+            let result = [];
             while (i < pending_requests.length) {
                 if (pending_requests[i].initiator_phone_number == data) {
                     result.push({
