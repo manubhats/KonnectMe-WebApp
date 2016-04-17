@@ -129,13 +129,11 @@ export default function() {
             data += chunk;
         });
         req.on('end', function() {
+            data = decodeURIComponent(data.replace(/\+/g,  " "));
             console.log(data);
-            console.log(decodeURI(data));
-            console.log(decodeURIComponent(data));
             try {
                 data = JSON.parse(data);
                 console.log(data);
-
                 for (let i = 0; i < data.contacts.length; i++) {
                     call(data.initiator_name, 
                         data.initiator_phone_number,
