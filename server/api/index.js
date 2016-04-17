@@ -161,28 +161,46 @@ export default function() {
             data += chunk;
         });
         req.on('end', function() {
+            console.log("Update Request Received")
+            data = data.substring(1);
             console.log(data);
+
+            let i = 0;
+            result = [];
+            while (i < pending_requests.length) {
+                if (pending_requests[i].initiator_phone_number == data) {
+                    result.push({
+                        event_id: pending_requests[i].event_id,
+                        contact_id: pending_requests[i].contact_id,
+                        response: pending_requests[i].response
+                    });
+                    pending_requests.splice(i, 1);
+                } else {
+                    i++;
+                }
+            }
+            res.end(JSON.stringify(result));
         });
         /*Assume data is parsed into format: 
         let data = {
             initiator_phone_number: x
         };
 
-        let i = 0;
-        result = [];
-        while (i < pending_requests.length) {
-            if (pending_requests[i].initiator_phone_number == data.initiator_phone_number) {
-                result.push({
-                    event_id: pending_requests[i].event_id,
-                    contact_id: pending_requests[i].contact_id,
-                    response: pending_requests[i].response
-                });
-                pending_requests.splice(i, 1);
-            } else {
-                i++;
+            let i = 0;
+            result = [];
+            while (i < pending_requests.length) {
+                if (pending_requests[i].initiator_phone_number == data.initiator_phone_number) {
+                    result.push({
+                        event_id: pending_requests[i].event_id,
+                        contact_id: pending_requests[i].contact_id,
+                        response: pending_requests[i].response
+                    });
+                    pending_requests.splice(i, 1);
+                } else {
+                    i++;
+                }
             }
-        }
-        res.end(JSON.stringify(result));*/
+            res.end(JSON.stringify(result));*/
     });
 
     //call("Hussain", "14692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
