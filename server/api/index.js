@@ -46,6 +46,7 @@ export default function() {
 
             // Push the new request into the pending array
             pending_requests.push(pending_request);
+            console.log(`Pushing request: ${pending_request}`);
 
             tropo.call(`${session.recipient_phone_number}`);
             
@@ -62,8 +63,6 @@ export default function() {
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
-            console.log("Sent Tropo: \n");
-            //console.log(TropoJSON(tropo));
         });
     });
 
