@@ -179,7 +179,14 @@ export default function() {
                     i++;
                 }
             }
-            res.end(JSON.stringify(result));
+            let return_string;
+            if (result.length > 0) {
+                return_string = JSON.stringify(result);
+            } else {
+                return_string = "No updates";
+            }
+            console.log(return_string);
+            res.end(return_string);
         });
         /*Assume data is parsed into format: 
         let data = {
