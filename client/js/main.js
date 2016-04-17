@@ -67,7 +67,17 @@ $( document ).ready(function() {
 	    	"http://ec2-52-36-37-169.us-west-2.compute.amazonaws.com:8080/api/update/",
 	    	"=" + phone_number,
 	    	function (data, status, xhr) {
-	    		console.log(data);
+	    		if (data != "No updates") {
+	    			try {
+	    				data = JSON.parse(data);
+			    		for (var i = 0; i < data.length) {
+			    			var cur = $("#recipientName" + data[i].contact_id).val();
+			    			$("#recipientName" + data[i].contact_id).val(cur + " - Response: " + data[i].response);		
+			    		}
+	    			} catch (e) {
+	    				console.log(e);
+	    			}
+	    		}
 	    	},
 	    	"text"
 	    );
