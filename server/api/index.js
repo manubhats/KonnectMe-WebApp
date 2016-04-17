@@ -52,16 +52,17 @@ export default function() {
             res.end(TropoJSON(tropo));
 
             // Create and populate new request object
-            let new_request = new Object(pending_request);
-            new_request.id = (JSON.parse(json)).session.id;
-            new_request.initiator_phone_number = session.initiator_phone_number;
-            new_request.event_id = session.event_id;
-            new_request.recipient_id = session.recipient_id;
+            let new_request = {
+                new_request.id: (JSON.parse(json)).session.id,
+                new_request.initiator_phone_number: session.initiator_phone_number,
+                new_request.event_id: session.event_id,
+                new_request.recipient_id: session.recipient_id
+            };
 
             // Push the new request into the pending array
             pending_requests.push(new_request);
             console.log("Pushing request: ");
-            console.log(pending_request);
+            console.log(new_request);
         });
     });
 
