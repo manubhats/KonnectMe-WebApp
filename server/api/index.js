@@ -46,7 +46,8 @@ export default function() {
 
             // Push the new request into the pending array
             pending_requests.push(pending_request);
-            console.log(`Pushing request: ${pending_request}`);
+            console.log("Pushing request: ");
+            console.log(pending_request);
 
             tropo.call(`${session.recipient_phone_number}`);
             
