@@ -56,8 +56,6 @@ export default function() {
 
             // Push the new request into the pending array
             pending_requests.push(new_request);
-            console.log("Pushing request: ");
-            console.log(new_request);
         });
     });
 
@@ -132,9 +130,20 @@ export default function() {
         });
         req.on('end', function() {
             console.log(data);
+            data = JSON.parse(data);
+            console.log(data);
+
+            for (let i = 0; i < data.contacts.length; i++) {
+                call(data.initiator_name, 
+                    data.initiator_phone_number,
+                    data.event_id, 
+                    data.contacts[i].contact_id, 
+                    data.contacts[i].contact_name, 
+                    data.contacts[i].contact_number,
+                    data.event_name, 
+                    data.message);
+            }   
         });
-        console.log('-----------------------');
-        console.log(req);
         /*
             Assume data is parsed into format:
             let data = {
@@ -156,16 +165,7 @@ export default function() {
                 ]
             };
 
-            for (let i = 0; i < data.contacts.length; i++) {
-                call(data.initiator_name, 
-                    data.initiator_phone_number,
-                    data.event_id, 
-                    data.contacts[i].contact_id, 
-                    data.contacts[i].contact_name, 
-                    data.contacts[i].contact_number,
-                    data.event_name, 
-                    data.message);
-            }     
+                  
 
         */
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
