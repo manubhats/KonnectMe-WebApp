@@ -23,7 +23,7 @@ export default function() {
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
             let session = (JSON.parse(json)).session.parameters;
-
+			console.log(session);
             tropo.call(`${session.recipient_phone_number}`);
             
             tropo.say(`Hey ${session.recipient_name}. You have been invited by ${session.initiator_name} to ${session.message}.`);
@@ -56,7 +56,7 @@ export default function() {
 
             tropo.say("Thank you for you response");
 
-            console.log(result.value);
+            console.log(result.sessionId);
 
             res.writeHead(200, {'Content-Type': 'application/json'});   
             res.end(TropoJSON(tropo));
