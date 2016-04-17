@@ -35,6 +35,7 @@ export default function() {
             let session = response.parameters;
 
             console.log(`Received request for ID ${response.id}`);
+			//console.log(response.id)
 
             // Create and populate new request object
             let new_request = new Object(pending_request);
@@ -148,6 +149,7 @@ export default function() {
 
     call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "Let's go to HackDFW");
     call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Let's go to Six Flags");
+	call("Manu", "19312848422", "2", "2", "Hussain", "6825648880", "Let's go to Six Flags");
 
     return router;
 }
