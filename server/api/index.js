@@ -20,9 +20,9 @@ export default function() {
         req.addListener('end', function(){
             console.log("Creating Tropo");
             let tropo = new TropoWebAPI();
-            console.log(json);
+
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
-            let session = Session(json);
+            let session = JSON.parse(json).parameters;
             console.log(session);
 
             tropo.call(`${session.recipient_phone_number}`);
