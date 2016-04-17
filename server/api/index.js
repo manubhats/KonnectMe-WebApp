@@ -67,14 +67,19 @@ export default function() {
 
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
             console.log(json);
-            let result = Result(json);
-            let id = result.sessionId;
-            for (let i = 0; i < pending_requests.length; i++) {
-                if (pending_requests[i].id == id) {
-                    console.log(`Received ${result.value} response for ID ${id}`);
-                    pending_requests[i].response = result.value;
-                }
-            }
+			try{
+				let result = Result(json);
+				let id = result.sessionId;
+				for (let i = 0; i < pending_requests.length; i++) {
+					if (pending_requests[i].id == id) {
+						console.log(`Received ${result.value} response for ID ${id}`);
+						pending_requests[i].response = result.value;
+					}
+				}
+			}
+			catch(e){
+				console.log(e);
+			}
 
             tropo.say("Thank you for you response. Have a great day!");
 
@@ -89,14 +94,19 @@ export default function() {
         req.addListener('end', function() {
             let tropo = new TropoWebAPI();
             console.log(json);
-            let result = Result(json);
-            let id = result.sessionId;
-            for (let i = 0; i < pending_requests.length; i++) {
-                if (pending_requests[i].id == id) {
-                    console.log(`Received ${result.value} response for ID ${id}`);
-                    pending_requests[i].response = "no";
-                }
-            }
+			try:
+				let result = Result(json);
+				let id = result.sessionId;
+				for (let i = 0; i < pending_requests.length; i++) {
+					if (pending_requests[i].id == id) {
+						console.log(`Received ${result.value} response for ID ${id}`);
+						pending_requests[i].response = "no";
+					}
+				}
+			catch(e){
+				console.log("");
+			}
+			
 
             tropo.say("You have not given a response, so we cannot confirm your interest. Have a great day!");
 
