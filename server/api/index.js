@@ -179,7 +179,7 @@ export default function() {
             let i = 0;
             let result = [];
             while (i < pending_requests.length) {
-                if (pending_requests[i].initiator_phone_number == data && !(pending_requests[i]. === undefined)) {
+                if (pending_requests[i].initiator_phone_number == data && pending_requests[i].response)) {
                     result.push({
                         event_id: pending_requests[i].event_id,
                         contact_id: pending_requests[i].recipient_id,
