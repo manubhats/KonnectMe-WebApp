@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {call} from '../lib/tropo.js';
-import tropo-webapi from 'tropo-webapi-node';
+require('tropo-webapi-node');
 
 export default function() {
 
@@ -59,7 +59,7 @@ export default function() {
     });
 
     router.route('/noanswer')
-    
+
     .post(function(req, res) {
         req.addListener('end', function(){
             let tropo = new TropoWebAPI();
