@@ -176,7 +176,7 @@ export default function() {
 
     // Handle new update request
     .post(function(req, res) {
-        Assume data is parsed into format: 
+        /*Assume data is parsed into format: 
         let data = {
             initiator_phone_number: x
         };
@@ -197,7 +197,7 @@ export default function() {
         }
 
 
-
+        */
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
         let session = Session(json);
 
@@ -211,8 +211,8 @@ export default function() {
         for ()*/
     });
 
-    call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
-    call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Six Flags", "Let's go to Six Flags");
+    call("Hussain", "14692699928", "1", "1", "Revanth", "19312848422", "HackDFW", "Let's go to HackDFW");
+    call("Revanth", "19312848422", "2", "2", "Hussain", "14692699928", "Six Flags", "Let's go to Six Flags");
 	//call("Manu", "19312848422", "2", "2", "Hussain", "6825648880", "Let's go to Six Flags");
 
     return router;
