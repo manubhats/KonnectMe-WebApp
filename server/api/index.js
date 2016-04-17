@@ -4,14 +4,6 @@ require('tropo-webapi-node');
 
 let pending_requests = [];
 
-const pending_request = {
-    id: null,
-    initiator_phone_number: null,
-    event_id: null,
-    recipient_id: null,
-    response: null
-}
-
 export default function() {
 
 	let router = Router();
@@ -44,7 +36,7 @@ export default function() {
             let choices = new Choices("yes(1, yes), no(2, no)");
         
             // Action classes can be passes as parameters to TropoWebAPI class methods.
-            tropo.ask(choices, 3, false, null, "foo", null, true, say, 5, null);
+            tropo.ask(choices, 3, true, null, "foo", null, true, say, 5, null);
             tropo.on("continue", null, '/api/answer', true);
             tropo.on("incomplete", null, '/api/noanswer', true);
 
@@ -114,6 +106,22 @@ export default function() {
     // Handle new call request
     .post(function(req, res) {
 
+        initiator_name: x,
+        initiator_phone_number: x,
+        event_id: x,
+        event_name: x,
+        event_message: x,
+        contacts: [
+            {
+                contact_id: x,
+                contact_name: x,
+                contact_number: x
+            },{
+                contact_id: x,
+                contact_name: x,
+                contact_number: x
+            }   
+        ] 
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
         let session = Session(json);
 
@@ -132,6 +140,8 @@ export default function() {
 
     // Handle new call request
     .post(function(req, res) {
+
+
 
         /*// Create a new instance of the Session object and give it the JSON delivered from Tropo.
         let session = Session(json);
