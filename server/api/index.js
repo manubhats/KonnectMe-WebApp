@@ -126,7 +126,15 @@ export default function() {
     // Handle new call request
     .post(function(req, res) {
         console.log("called");
-        console.log(req.body);
+        let data = "";
+        req.on('data', function(chunk) {
+            data += chunk;
+        });
+        req.on('end', function() {
+            console.log(data);
+        });
+        console.log('-----------------------');
+        console.log(req);
         /*
             Assume data is parsed into format:
             let data = {
