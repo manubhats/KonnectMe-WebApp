@@ -4,7 +4,7 @@ require('tropo-webapi-node');
 
 let pending_requests = [];
 
-pending_request = {
+const pending_request = {
     id: null,
     initiator_phone_number: null,
     event_id: null,
