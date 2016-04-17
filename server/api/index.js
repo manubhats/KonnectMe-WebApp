@@ -21,7 +21,7 @@ export default function() {
             console.log("Creating Tropo");
             let tropo = new TropoWebAPI();
             
-            console.log(JSON.parse(json));
+            console.log((JSON.parse(json)).session.parameters);
             // Create a new instance of the Session object and give it the JSON delivered from Tropo.
             let session = Session(json);
 
