@@ -130,19 +130,23 @@ export default function() {
         });
         req.on('end', function() {
             console.log(data);
-            data = JSON.parse(data);
-            console.log(data);
+            try {
+                data = JSON.parse(data);
+                console.log(data);
 
-            for (let i = 0; i < data.contacts.length; i++) {
-                call(data.initiator_name, 
-                    data.initiator_phone_number,
-                    data.event_id, 
-                    data.contacts[i].contact_id, 
-                    data.contacts[i].contact_name, 
-                    data.contacts[i].contact_number,
-                    data.event_name, 
-                    data.message);
-            }   
+                for (let i = 0; i < data.contacts.length; i++) {
+                    call(data.initiator_name, 
+                        data.initiator_phone_number,
+                        data.event_id, 
+                        data.contacts[i].contact_id, 
+                        data.contacts[i].contact_name, 
+                        data.contacts[i].contact_number,
+                        data.event_name, 
+                        data.message);
+                }  
+            } catch (e) {
+
+            } 
         });
         /*
             Assume data is parsed into format:
