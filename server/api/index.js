@@ -126,7 +126,7 @@ export default function() {
     // Handle new call request
     .post(function(req, res) {
         console.log("called");
-        console.log(res);
+        console.log(req.body);
         /*
             Assume data is parsed into format:
             let data = {
