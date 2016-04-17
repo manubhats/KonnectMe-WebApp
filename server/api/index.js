@@ -81,7 +81,7 @@ export default function() {
                     //console.log(`Received ${result.value} response for ID ${id}`);
 					console.log(pending_request);
                     pending_requests[i].response = result.value;
-					
+					pending.length = 0;
                 }
             }
 
@@ -153,7 +153,7 @@ export default function() {
 
     call("Hussain", "4692699928", "1", "1", "Revanth", "19312848422", "Let's go to HackDFW");
     call("Revanth", "19312848422", "2", "2", "Hussain", "4692699928", "Let's go to Six Flags");
-	call("Manu", "19312848422", "2", "2", "Hussain", "6825648880", "Let's go to Six Flags");
+	//call("Manu", "19312848422", "2", "2", "Hussain", "6825648880", "Let's go to Six Flags");
 
     return router;
 }
