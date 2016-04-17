@@ -53,10 +53,10 @@ export default function() {
 
             // Create and populate new request object
             let new_request = {
-                new_request.id: (JSON.parse(json)).session.id,
-                new_request.initiator_phone_number: session.initiator_phone_number,
-                new_request.event_id: session.event_id,
-                new_request.recipient_id: session.recipient_id
+                id: (JSON.parse(json)).session.id,
+                initiator_phone_number: session.initiator_phone_number,
+                event_id: session.event_id,
+                recipient_id: session.recipient_id
             };
 
             // Push the new request into the pending array
