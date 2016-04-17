@@ -28,7 +28,7 @@ export default function() {
     
             // Demonstrates how to use the base Tropo action classes.
             let say = new Say(`Would you like to join in? Press 1 or say yes to join, or say no or press 2 to decline.`);
-            let choices = new Choices({"yes(1, yes), no(2, no)"});
+            let choices = new Choices('{"yes(1, yes), no(2, no)"}');
         
             // Action classes can be passes as parameters to TropoWebAPI class methods.
             tropo.ask(choices, 3, false, null, "foo", null, true, say, 5, null);
